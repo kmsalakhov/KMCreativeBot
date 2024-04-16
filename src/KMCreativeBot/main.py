@@ -10,13 +10,12 @@ import jinja2
 
 import configparser
 import config.path_config as path_config
+from KMCreativeBot.templates_util.template_managers.template_manager import TemplateManager
 
-import datetime  # Library that we will need to get the day and time, #pip install datetime
-import requests  # Library used to make requests to external services (the weather forecast one) # pip install requests
+from KMCreativeBot.templates_util.template_providers.os_template_provider import OsTemplateProvider
+from KMCreativeBot.templates_util.template_providers.template_provider import TemplateProvider
 
 # Access credentials
-
-
 security_config = configparser.ConfigParser()
 security_config.read(path_config.SECURITY_CONFIG_PATH)
 
@@ -26,19 +25,18 @@ BOT_TOKEN = security_config.get('default', 'BOT_TOKEN')
 
 client = TelegramClient(path_config.SESSIONS_PATH, api_id, api_hash).start(bot_token=BOT_TOKEN)
 
+templates_provider: TemplateProvider = OsTemplateProvider(path_config.TEMPLATES_PATH)
+template_manager: TemplateManager = TemplateManager(templates_provider)
+
 
 @client.on(events.NewMessage(pattern='(?i)/start'))
 async def start(event):
     sender = await event.get_sender()
     sender_id = sender.id
+
     await client.send_message(sender_id, messages.HELLO_MESSAGE, parse_mode="HTML")
+    await client.send_message(sender_id, template_manager.get_template_choose_message(), parse_mode="HTML")
 
-    template_message = messages.CHOOSE_TEMPLATE_MESSAGE
-    templates = os.listdir('../../resources/templates/post-templates')
-    template_list_with_slash = ['/' + template for template in templates]
-    template_message += '\n'.join(template_list_with_slash)
-
-    await client.send_message(sender_id, template_message, parse_mode="HTML")
 
 @client.on(events.NewMessage(pattern='(?i)/youtube-video-template'))
 async def fillTemplate(event):
@@ -54,8 +52,10 @@ async def fillTemplate(event):
         choice = str(press.data.decode("utf-8"))
         await conv.send_message(choice, parse_mode='html')
 
+
 def press_event(user_id):
     return events.CallbackQuery(func=lambda e: e.sender_id == user_id)
+
 
 if __name__ == '__main__':
     print("bot started")

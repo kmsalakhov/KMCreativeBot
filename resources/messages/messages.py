@@ -7,5 +7,5 @@ Happy posting! 😊🚀
 """
 
 CHOOSE_TEMPLATE_MESSAGE = r"""
-Choose one of this templates_util:
+Choose one of this templates:
 """

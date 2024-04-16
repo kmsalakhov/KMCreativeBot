@@ -14,3 +14,5 @@ class OsTemplate(Template):
         with open(template_path, 'r') as file:
             return file.read()
 
+    def get_name(self) -> str:
+        return self.template_name
