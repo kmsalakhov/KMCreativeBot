@@ -11,8 +11,8 @@ class OsTemplate(Template):
 
     def get_content(self) -> str:
         template_path = os.path.join(self.template_dir, self.template_name)
-        with open(template_path, 'r') as file:
+        with open(template_path + '.txt', 'r') as file:
             return file.read()
 
     def get_name(self) -> str:
-        return self.template_name
+        return self.template_name[:-4]
