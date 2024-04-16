@@ -52,6 +52,8 @@ async def start(event):
 
 
 async def fill_template(conv, template):
+    await conv.send_message(messages.SHOW_TEMPLATE_MESSAGE.format(template.get_content()))
+
     jin_template = Template(template.get_content())
     variables = template.extract_variables()
     context = {}

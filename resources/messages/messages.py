@@ -28,3 +28,11 @@ Here's your finalized post 🌟:
 
 {}
 """
+
+SHOW_TEMPLATE_MESSAGE = r"""
+Hey there! 😊 Check out the template below! 📝
+
+{}
+
+Feel free to explore more templates by clicking /start ✨
+"""
