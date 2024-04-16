@@ -9,21 +9,22 @@ from telethon.tl.custom import Button
 import jinja2
 
 import configparser
+import config.path_config as path_config
 
 import datetime  # Library that we will need to get the day and time, #pip install datetime
 import requests  # Library used to make requests to external services (the weather forecast one) # pip install requests
 
 # Access credentials
-SECURITY_CONFIG_PATH = "../../security/tokens/token_config.ini"
+
 
 security_config = configparser.ConfigParser()
-security_config.read(SECURITY_CONFIG_PATH)
+security_config.read(path_config.SECURITY_CONFIG_PATH)
 
 api_id = int(security_config.get('default', 'api_id'))
 api_hash = security_config.get('default', 'api_hash')
 BOT_TOKEN = security_config.get('default', 'BOT_TOKEN')
 
-client = TelegramClient('../../sessions/', api_id, api_hash).start(bot_token=BOT_TOKEN)
+client = TelegramClient(path_config.SESSIONS_PATH, api_id, api_hash).start(bot_token=BOT_TOKEN)
 
 
 @client.on(events.NewMessage(pattern='(?i)/start'))
