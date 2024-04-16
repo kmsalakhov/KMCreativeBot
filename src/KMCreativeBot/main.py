@@ -25,20 +25,6 @@ templates_provider: TemplateProvider = OsTemplateProvider(path_config.TEMPLATES_
 template_manager: TemplateManager = TemplateManager(templates_provider)
 
 
-# @client.on(events.NewMessage(pattern='(?i)/start'))
-# async def start(event):
-#     async with client.conversation(await event.get_chat(), exclusive=True) as conv:
-#         await conv.send_message(messages.HELLO_MESSAGE)
-#         await conv.send_message(template_manager.get_template_choose_message())
-#
-#         try:
-#             template_name = (await conv.get_response()).message
-#             template = templates_provider.get_template(template_name)
-#
-#             await fill_template(conv, template)
-#         except NoTemplateFindException:
-#             await conv.send_message(messages.NO_TEMPLATE_FIND_MESSAGE.format(template_name))
-
 @client.on(events.NewMessage(pattern='(?i)/start'))
 async def start(event):
     template_list = [template.get_name() for template in templates_provider.get_templates()]
@@ -58,7 +44,6 @@ async def start(event):
 
         try:
             template_name = str((await conv.wait_event(events.CallbackQuery())).data.decode('utf-8'))
-            # template_name = await conv.get_response()
             template = templates_provider.get_template(template_name)
 
             await fill_template(conv, template)
@@ -79,14 +64,6 @@ async def fill_template(conv, template):
         context[variable] = variable_definition
 
     await conv.send_message(messages.FINAL_MESSAGE.format(jin_template.render(context)), parse_mode="markdown")
-
-
-def press_event(user_id):
-    return events.CallbackQuery(func=lambda e: e.sender_id == user_id)
-
-
-def press_event(user_id):
-    return events.CallbackQuery(func=lambda e: e.sender_id == user_id)
 
 
 if __name__ == '__main__':
