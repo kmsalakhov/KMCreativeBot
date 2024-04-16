@@ -5,3 +5,7 @@ I'm here to assist you in generating posts using our templates. Simply select th
 
 Happy posting! 😊🚀
 """
+
+CHOOSE_TEMPLATE_MESSAGE = r"""
+Choose one of this templates:
+"""

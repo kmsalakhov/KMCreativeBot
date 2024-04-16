@@ -1,1 +1,2 @@
-security/tokens/config.ini
+security/tokens/token_config.ini
+sessions/.session
