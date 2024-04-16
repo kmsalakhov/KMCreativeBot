@@ -9,3 +9,9 @@ Happy posting! 😊🚀
 CHOOSE_TEMPLATE_MESSAGE = r"""
 Choose one of this templates:
 """
+
+NO_TEMPLATE_FIND_MESSAGE = r"""
+We cannot find template with name '{}'
+
+/start again and write existing name of template.
+"""

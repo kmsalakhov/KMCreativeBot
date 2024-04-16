@@ -1,15 +1,11 @@
-# Telethon utility #pip install telethon
-import os
-from typing import List
+from jinja2 import Template
 
 import resources.messages.messages as messages
 from telethon import TelegramClient, events
-from telethon.tl.custom import Button
-
-import jinja2
 
 import configparser
 import config.path_config as path_config
+from KMCreativeBot.templates_util.exceptions.no_template_find_exception import NoTemplateFindException
 from KMCreativeBot.templates_util.template_managers.template_manager import TemplateManager
 
 from KMCreativeBot.templates_util.template_providers.os_template_provider import OsTemplateProvider
@@ -31,26 +27,31 @@ template_manager: TemplateManager = TemplateManager(templates_provider)
 
 @client.on(events.NewMessage(pattern='(?i)/start'))
 async def start(event):
-    sender = await event.get_sender()
-    sender_id = sender.id
-
-    await client.send_message(sender_id, messages.HELLO_MESSAGE, parse_mode="HTML")
-    await client.send_message(sender_id, template_manager.get_template_choose_message(), parse_mode="HTML")
-
-
-@client.on(events.NewMessage(pattern='(?i)/youtube-video-template'))
-async def fillTemplate(event):
-    sender = await event.get_sender()
-    sender_id = sender.id
-    await client.send_message(sender_id, messages.HELLO_MESSAGE, parse_mode="HTML")
-
     async with client.conversation(await event.get_chat(), exclusive=True) as conv:
-        keyboard = [[Button.inline("{}".format("hello"), "hello")], [Button.inline("{}".format('HELLO'), 'HELLO')]]
+        await conv.send_message(messages.HELLO_MESSAGE)
+        await conv.send_message(template_manager.get_template_choose_message())
 
-        await conv.send_message(messages.CHOOSE_TEMPLATE_MESSAGE, buttons=keyboard, parse_mode='html')
-        press = await conv.wait_event(press_event(sender_id))
-        choice = str(press.data.decode("utf-8"))
-        await conv.send_message(choice, parse_mode='html')
+        try:
+            template_name = (await conv.get_response()).message
+            template = templates_provider.get_template(template_name)
+
+            await fill_template(conv, template)
+        except NoTemplateFindException:
+            await conv.send_message(messages.NO_TEMPLATE_FIND_MESSAGE.format(template_name))
+
+
+async def fill_template(conv, template):
+    jin_template = Template(template.get_content())
+    variables = template.extract_variables()
+    context = {}
+
+    for variable in variables:
+        await conv.send_message('Define {}'.format(variable))
+
+        variable_definition = (await conv.get_response()).message
+        context[variable] = variable_definition
+
+    await conv.send_message('Your post\n{}'.format(jin_template.render(context)))
 
 
 def press_event(user_id):
