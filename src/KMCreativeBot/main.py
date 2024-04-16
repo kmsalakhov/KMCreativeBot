@@ -77,7 +77,7 @@ async def fill_template(conv, template):
         variable_definition = (await conv.get_response()).message
         context[variable] = variable_definition
 
-    await conv.send_message('Your post\n{}'.format(jin_template.render(context)))
+    await conv.send_message('Your post\n{}'.format(jin_template.render(context)), parse_mode="markdown")
 
 
 def press_event(user_id):

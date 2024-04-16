@@ -1,12 +1,14 @@
 #{{ level }}
 
+**[{{ name }}]({{ link }})**
+
 {{ main_text }}
 
-Summary:
+**Summary:**
 {{ summary }}
 
-Prerequisites: {{ prerequisites }}
+**Prerequisites:** {{ prerequisites }}
 
-Recommended: {{ recommended }}
+**Recommended:** {{ recommended }}
 
 {{ tags }}
