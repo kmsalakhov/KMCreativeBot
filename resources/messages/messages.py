@@ -7,11 +7,24 @@ Happy posting! 😊🚀
 """
 
 CHOOSE_TEMPLATE_MESSAGE = r"""
-Choose one of this templates:
+Welcome! 🌟 Please select a template from the options below:
 """
 
 NO_TEMPLATE_FIND_MESSAGE = r"""
-We cannot find template with name '{}'
+Oops! 😅 It seems we couldn't find a template with that name. 
+Please try again and type /start to restart the process
+"""
 
-/start again and write existing name of template.
+START_DEFINING_MESSAGE = r"""
+Alright! Let's get started. 🚀 Please define the value for the first variable: '{}'. 😊
+"""
+
+DEFINE_MESSAGE = r"""
+Awesome! Now, please define the value for the next variable: '{}'. 😊
+"""
+
+FINAL_MESSAGE = r"""
+Here's your finalized post 🌟:
+
+{}
 """

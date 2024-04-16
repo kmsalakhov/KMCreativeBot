@@ -71,13 +71,14 @@ async def fill_template(conv, template):
     variables = template.extract_variables()
     context = {}
 
-    for variable in variables:
-        await conv.send_message('Define {}'.format(variable))
+    for index, variable in enumerate(variables):
+        message = messages.START_DEFINING_MESSAGE if index == 0 else messages.DEFINE_MESSAGE
+        await conv.send_message(message.format(variable))
 
         variable_definition = (await conv.get_response()).message
         context[variable] = variable_definition
 
-    await conv.send_message('Your post\n{}'.format(jin_template.render(context)), parse_mode="markdown")
+    await conv.send_message(messages.FINAL_MESSAGE.format(jin_template.render(context)), parse_mode="markdown")
 
 
 def press_event(user_id):
