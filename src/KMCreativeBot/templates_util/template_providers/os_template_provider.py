@@ -11,7 +11,6 @@ class OsTemplateProvider(TemplateProvider):
         self.template_dir = template_dir
         self.template_dirs = os.listdir(self.template_dir)
         self.template_names = [template_dir[:-4] for template_dir in self.template_dirs]
-        print(self.template_names)
 
     def get_templates(self) -> List[OsTemplate]:
         return [OsTemplate(template_name, self.template_dir) for template_name in self.template_dirs]

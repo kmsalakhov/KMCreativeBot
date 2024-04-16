@@ -1,0 +1,12 @@
+#{{ level }}
+
+{{ main_text }}
+
+Summary:
+{{ summary }}
+
+Prerequisites: {{ prerequisites }}
+
+Recommended: {{ recommended }}
+
+{{ tags }}
