@@ -5,11 +5,11 @@ from telethon import TelegramClient, events, Button
 
 import configparser
 import config.path_config as path_config
-from KMCreativeBot.templates_util.exceptions.no_template_find_exception import NoTemplateFindException
-from KMCreativeBot.templates_util.template_managers.template_manager import TemplateManager
+from KMCreativeBot.templates.exceptions.no_template_find_exception import NoTemplateFindException
+from KMCreativeBot.templates.template_managers.template_manager import TemplateManager
 
-from KMCreativeBot.templates_util.template_providers.os_template_provider import OsTemplateProvider
-from KMCreativeBot.templates_util.template_providers.template_provider import TemplateProvider
+from KMCreativeBot.templates.template_providers.os_template_provider import OsTemplateProvider
+from KMCreativeBot.templates.template_providers.template_provider import TemplateProvider
 
 # Access credentials
 security_config = configparser.ConfigParser()

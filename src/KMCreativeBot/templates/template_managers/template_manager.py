@@ -1,4 +1,4 @@
-from KMCreativeBot.templates_util.template_providers.template_provider import TemplateProvider
+from KMCreativeBot.templates.template_providers.template_provider import TemplateProvider
 import resources.messages.messages as messages
 
 

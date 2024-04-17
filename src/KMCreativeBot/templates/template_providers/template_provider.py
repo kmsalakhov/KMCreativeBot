@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from KMCreativeBot.templates_util.templates.template import Template
+from KMCreativeBot.templates.templates.template import Template
 
 
 class TemplateProvider(ABC):

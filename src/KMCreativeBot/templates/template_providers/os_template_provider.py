@@ -1,9 +1,9 @@
 import os
 from typing import List
 
-from KMCreativeBot.templates_util.exceptions.no_template_find_exception import NoTemplateFindException
-from KMCreativeBot.templates_util.template_providers.template_provider import TemplateProvider
-from KMCreativeBot.templates_util.templates.os_template import OsTemplate
+from KMCreativeBot.templates.exceptions.no_template_find_exception import NoTemplateFindException
+from KMCreativeBot.templates.template_providers.template_provider import TemplateProvider
+from KMCreativeBot.templates.templates.os_template import OsTemplate
 
 
 class OsTemplateProvider(TemplateProvider):

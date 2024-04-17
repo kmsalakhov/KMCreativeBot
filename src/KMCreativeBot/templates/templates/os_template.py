@@ -1,6 +1,6 @@
 import os
 
-from KMCreativeBot.templates_util.templates.template import Template
+from KMCreativeBot.templates.templates.template import Template
 
 
 class OsTemplate(Template):
